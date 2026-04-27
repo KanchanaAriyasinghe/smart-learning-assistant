@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "flashcards",
+  "info": {
+    "singularName": "flashcard",
+    "pluralName": "flashcards",
+    "displayName": "Flashcard"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "front": {
+      "type": "text",
+      "required": true
+    },
+    "back": {
+      "type": "text",
+      "required": true
+    },
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic"
+    }
+  }
+}

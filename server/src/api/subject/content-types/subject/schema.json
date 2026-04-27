@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subjects",
+  "info": {
+    "singularName": "subject",
+    "pluralName": "subjects",
+    "displayName": "Subject"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "description": { "type": "text" },
+    "color": { "type": "string", "default": "#6366f1" },
+    "icon": { "type": "string" },
+    "topics": { "type": "relation", "relation": "oneToMany", "target": "api::topic.topic", "mappedBy": "subject" },
+    "user_id": { "type": "string", "required": true }
+  }
+}
