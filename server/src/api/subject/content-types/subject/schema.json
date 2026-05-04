@@ -4,15 +4,39 @@
   "info": {
     "singularName": "subject",
     "pluralName": "subjects",
-    "displayName": "Subject"
+    "displayName": "Subject",
+    "description": "A learning subject containing multiple topics"
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginsOptions": {},
   "attributes": {
-    "name": { "type": "string", "required": true },
-    "description": { "type": "text" },
-    "color": { "type": "string", "default": "#6366f1" },
-    "icon": { "type": "string" },
-    "topics": { "type": "relation", "relation": "oneToMany", "target": "api::topic.topic", "mappedBy": "subject" },
-    "user_id": { "type": "string", "required": true }
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string",
+      "default": "#6366f1"
+    },
+    "icon": {
+      "type": "string",
+      "default": "📚"
+    },
+    "user_id": {
+      "type": "string",
+      "required": true
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "subject"
+    }
   }
 }

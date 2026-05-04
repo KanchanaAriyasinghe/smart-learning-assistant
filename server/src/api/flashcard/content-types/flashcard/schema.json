@@ -21,7 +21,8 @@
     "topic": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::topic.topic"
+      "target": "api::topic.topic",
+      "inversedBy": "flashcards"
     }
   }
 }

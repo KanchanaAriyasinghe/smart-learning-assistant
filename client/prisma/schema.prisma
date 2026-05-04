@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id @default(cuid())
+  email             String              @unique
+  name              String?
+  image             String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  quizAttempts      QuizAttempt[]
+  flashcardProgress FlashcardProgress[]
+  topicProgress     TopicProgress[]
+}
+
+model QuizAttempt {
+  id         String   @id @default(cuid())
+  userId     String
+  topicId    String
+  topicTitle String   @default("")
+  score      Int
+  totalQ     Int
+  percentage Float
+  answers    Json
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([topicId])
+}
+
+model FlashcardProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  flashcardId  String
+  topicId      String
+  status       String    @default("unseen")
+  reviewCount  Int       @default(0)
+  lastReviewed DateTime?
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, flashcardId])
+  @@index([userId, topicId])
+}
+
+model TopicProgress {
+  id             String   @id @default(cuid())
+  userId         String
+  topicId        String
+  topicTitle     String   @default("")
+  summaryViewed  Boolean  @default(false)
+  quizCompleted  Boolean  @default(false)
+  flashcardsDone Boolean  @default(false)
+  bestScore      Float    @default(0)
+  completionPct  Float    @default(0)
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+  @@index([userId])
+}

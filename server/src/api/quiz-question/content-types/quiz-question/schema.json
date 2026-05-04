@@ -6,17 +6,37 @@
     "pluralName": "quiz-questions",
     "displayName": "Quiz Question"
   },
-  "options": { "draftAndPublish": false },
+  "options": {
+    "draftAndPublish": false
+  },
   "attributes": {
-    "question": { "type": "text", "required": true },
-    "options": { "type": "json", "required": true },
-    "correct_answer": { "type": "integer", "required": true },
-    "explanation": { "type": "text" },
+    "question": {
+      "type": "text",
+      "required": true
+    },
+    "options": {
+      "type": "json",
+      "required": true
+    },
+    "correct_answer": {
+      "type": "integer",
+      "required": true,
+      "min": 0,
+      "max": 3
+    },
+    "explanation": {
+      "type": "text"
+    },
     "difficulty": {
       "type": "enumeration",
       "enum": ["easy", "medium", "hard"],
       "default": "medium"
     },
-    "topic": { "type": "relation", "relation": "manyToOne", "target": "api::topic.topic", "inversedBy": "quiz_questions" }
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "quiz_questions"
+    }
   }
 }

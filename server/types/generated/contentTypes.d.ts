@@ -472,7 +472,15 @@ export interface ApiQuizQuestionQuizQuestion
     draftAndPublish: false;
   };
   attributes: {
-    correct_answer: Schema.Attribute.Integer & Schema.Attribute.Required;
+    correct_answer: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 0;
+        },
+        number
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -498,6 +506,7 @@ export interface ApiQuizQuestionQuizQuestion
 export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
   collectionName: 'subjects';
   info: {
+    description: 'A learning subject containing multiple topics';
     displayName: 'Subject';
     pluralName: 'subjects';
     singularName: 'subject';
@@ -511,14 +520,18 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    icon: Schema.Attribute.String;
+    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\uD83D\uDCDA'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::subject.subject'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     topics: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -531,6 +544,7 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
 export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
   collectionName: 'topics';
   info: {
+    description: 'A learning topic from a YouTube video';
     displayName: 'Topic';
     pluralName: 'topics';
     singularName: 'topic';
@@ -542,6 +556,7 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    error_message: Schema.Attribute.String;
     flashcards: Schema.Attribute.Relation<
       'oneToMany',
       'api::flashcard.flashcard'

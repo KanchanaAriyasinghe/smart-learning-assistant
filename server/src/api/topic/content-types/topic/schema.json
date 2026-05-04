@@ -4,30 +4,61 @@
   "info": {
     "singularName": "topic",
     "pluralName": "topics",
-    "displayName": "Topic"
+    "displayName": "Topic",
+    "description": "A learning topic from a YouTube video"
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "attributes": {
-    "title": { "type": "string", "required": true },
-    "youtube_url": { "type": "string" },
-    "youtube_id": { "type": "string" },
-    "transcript": { "type": "text" },
-    "summary": { "type": "text" },
-    "key_concepts": { "type": "json" },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "youtube_id": {
+      "type": "string"
+    },
+    "transcript": {
+      "type": "text"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "key_concepts": {
+      "type": "json"
+    },
     "status": {
       "type": "enumeration",
       "enum": ["pending", "processing", "ready", "error"],
       "default": "pending"
     },
-    "subject": { "type": "relation", "relation": "manyToOne", "target": "api::subject.subject", "inversedBy": "topics" },
-    "quiz_questions": { "type": "relation", "relation": "oneToMany", "target": "api::quiz-question.quiz-question", "mappedBy": "topic" },
-    "flashcards": { "type": "relation", "relation": "oneToMany", "target": "api::flashcard.flashcard", "mappedBy": "topic" },
-    "user_id": { "type": "string", "required": true }
-  },
-  "flashcards": {
-  "type": "relation",
-  "relation": "oneToMany",
-  "target": "api::flashcard.flashcard",
-  "mappedBy": "topic"
-}
+    "error_message": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string",
+      "required": true
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "topics"
+    },
+    "quiz_questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz-question.quiz-question",
+      "mappedBy": "topic"
+    },
+    "flashcards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::flashcard.flashcard",
+      "mappedBy": "topic"
+    }
+  }
 }
